@@ -18,15 +18,38 @@
 #define MAX_ROOMS 5  //  max number of rooms
 
 // Function prototypes
-void initializeSystem();
+void initializeSystem(int lights[], int temperatures[], int motion[], int locks[], int rooms);
 void displayMenu();
-void controlLights();
-void readTemperature();
-void detectMotion();
-void securitySystem();
-void analyzeHouseStatus();
-
+void controlLights(int lights[], int rooms);
+void readTemperature(int temperatures[], int rooms);
+void detectMotion(int motion[], int rooms);
+void securitySystem(int locks[], int motion[], int rooms);
+void analyzeHouseStatus(int lights[], int temperatures[], int motion[], int locks[], int rooms);
 int main() {
+     int rooms;
+    printf("Enter number of rooms: ");
+    scanf("%d", &rooms);
+
+    int lights[rooms], temperatures[rooms], motion[rooms], locks[rooms];
+    initializeSystem(lights, temperatures, motion, locks, rooms);
+
+    int choice;
+    do {
+        displayMenu();
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: controlLights(lights, rooms); break;
+            case 2: readTemperature(temperatures, rooms); break;
+            case 3: detectMotion(motion, rooms); break;
+            case 4: securitySystem(locks, motion, rooms); break;
+            case 5: analyzeHouseStatus(lights, temperatures, motion, locks, rooms); break;
+            case 6: printf("Exiting...\n"); break;
+            default: printf("Invalid choice! Try again.\n");
+        }
+    } while (choice != 6);
+
     
 
     return 0;
